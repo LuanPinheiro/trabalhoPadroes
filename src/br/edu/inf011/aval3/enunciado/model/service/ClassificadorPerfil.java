@@ -7,7 +7,7 @@ import br.edu.inf011.aval3.enunciado.model.CartaoCredito;
 import br.edu.inf011.aval3.enunciado.model.Documento;
 import br.edu.inf011.aval3.enunciado.model.Perfil;
 
-
+// REAL SUBJECT em um PROXY
 public class ClassificadorPerfil implements Classificador{
 	
 	private Perfil perfil;
@@ -22,8 +22,10 @@ public class ClassificadorPerfil implements Classificador{
 	public NivelPerfil nivel() {
 		boolean hasCPF = false;
 		Integer qtdeCC = 0;
+		
+		
 		Integer pontuacao = perfil.documentos()
-				                  .filter(doc->doc.validar())
+				                  .filter(doc-> doc.validar())
 				                  .mapToInt(doc->doc.pontuar())
 				                  .sum();
 		Iterator<Documento> docs = perfil.documentos().iterator();
