@@ -6,8 +6,11 @@ import br.edu.inf011.aval3.enunciado.model.CPF;
 import br.edu.inf011.aval3.enunciado.model.CartaoCredito;
 import br.edu.inf011.aval3.enunciado.model.Documento;
 import br.edu.inf011.aval3.enunciado.model.Perfil;
+import br.edu.inf011.aval3.enunciado.visitor.VisitorPontuacao;
+import br.edu.inf011.aval3.enunciado.visitor.VisitorValidacao;
 
 // REAL SUBJECT em um PROXY
+// CLIENT em um VISITOR
 public class ClassificadorPerfil implements Classificador{
 	
 	private Perfil perfil;
@@ -16,17 +19,15 @@ public class ClassificadorPerfil implements Classificador{
 		this.perfil = perfil;
 	}
 	
-	
-	
-	
+	// Método alterado para chamar Visitors de validação e pontuação 
 	public NivelPerfil nivel() {
 		boolean hasCPF = false;
 		Integer qtdeCC = 0;
 		
 		
 		Integer pontuacao = perfil.documentos()
-				                  .filter(doc-> doc.validar())
-				                  .mapToInt(doc->doc.pontuar())
+				                  .filter(doc-> (boolean) doc.accept(new VisitorValidacao()))
+				                  .mapToInt(doc-> (Integer) doc.accept(new VisitorPontuacao()))
 				                  .sum();
 		Iterator<Documento> docs = perfil.documentos().iterator();
 		while(docs.hasNext()) {
@@ -46,14 +47,8 @@ public class ClassificadorPerfil implements Classificador{
 		return NivelPerfil.NAO_VERIFICADO;
 	}
 
-
-
-
 	@Override
 	public Perfil getPerfil() {
 		return this.perfil ;
 	}
-	
-	
-
 }

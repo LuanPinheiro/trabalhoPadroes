@@ -1,7 +1,8 @@
 package br.edu.inf011.aval3.enunciado.model;
 
-import java.util.regex.Pattern;
+import br.edu.inf011.aval3.enunciado.visitor.VisitorDocumento;
 
+// CONCRETE ELEMENT em um VISITOR
 public class EMail implements Documento{
 	
 	public static final String REGEX = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"; 
@@ -12,25 +13,9 @@ public class EMail implements Documento{
 		super();
 		this.conta = conta;
 	}
-
-	@Override
-	public String formatar() {
-		
-		return "E-MAIL\n" + this.conta;
-	}
-
-	@Override
-	public boolean validar() {
-	    return Pattern.compile(EMail.REGEX)
-	    	      .matcher(this.conta)
-	    	      .matches();
-	}
-
-	@Override
-	public Integer pontuar() {
-		return this.validar() ? 1 : 0;
-	}
-
+	
+	// Métodos de validação, pontuação e formatação movidos para o visitor
+	
 	public static String getRegex() {
 		return REGEX;
 	}
@@ -38,9 +23,9 @@ public class EMail implements Documento{
 	public String getConta() {
 		return conta;
 	}
-	
-	
-	
-	
 
+	@Override
+	public Object accept(VisitorDocumento visitor) {
+		return visitor.visit(this);		
+	}
 }

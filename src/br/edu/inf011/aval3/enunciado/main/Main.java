@@ -7,7 +7,10 @@ import br.edu.inf011.aval3.enunciado.exceptions.PerfilSemNomeException;
 import br.edu.inf011.aval3.enunciado.model.Perfil;
 import br.edu.inf011.aval3.enunciado.model.service.ClassificadorPerfil;
 import br.edu.inf011.aval3.enunciado.proxy.ProxyClassificador;
+import br.edu.inf011.aval3.enunciado.visitor.VisitorFormatacao;
 
+// CLIENT em um BUILDER
+// CLIENT em um PROXY
 public class Main {
 
 	public static void main(String[] args) throws LimiteAtingidoException, PerfilSemNomeException, DocumentoInvalidoException {
@@ -25,6 +28,8 @@ public class Main {
 		ProxyClassificador proxy2 = new ProxyClassificador(classificador, "Frederico, pior professor", "Frederico, meu orientador <3");
 		System.out.println("Nível do perfil: " + proxy.nivel().toString());
 		System.out.println("Nível do perfil: " + proxy2.nivel().toString());
+		
+		VisitorFormatacao formatacao = new VisitorFormatacao();
+		perfil.documentos().forEach(d -> System.out.println(d.accept(formatacao)));
 	}
-
 }

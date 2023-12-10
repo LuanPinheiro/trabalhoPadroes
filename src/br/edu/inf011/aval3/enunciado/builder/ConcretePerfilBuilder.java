@@ -12,8 +12,10 @@ import br.edu.inf011.aval3.enunciado.model.Documento;
 import br.edu.inf011.aval3.enunciado.model.EMail;
 import br.edu.inf011.aval3.enunciado.model.Perfil;
 import br.edu.inf011.aval3.enunciado.model.RG;
+import br.edu.inf011.aval3.enunciado.visitor.VisitorValidacao;
 
 // CONCRETE BUILDER em um BUILDER
+// CLIENT em um VISITOR
 public class ConcretePerfilBuilder implements PerfilBuilder {
 
 	private CPF cpf;
@@ -45,30 +47,33 @@ public class ConcretePerfilBuilder implements PerfilBuilder {
 		this.user = null;
 		this.password = null;
 	}
-
+	
+	// Método alterado para chamar Visitor de validação
 	@Override
 	public void setCpf(String nome, String numero) throws DocumentoInvalidoException {
 		CPF cpf = new CPF(nome, numero);
-		if(!cpf.validar()) {
+		if(!(boolean) cpf.accept(new VisitorValidacao())) {
 			throw new DocumentoInvalidoException("CPF Inválido");
 		}
 		this.cpf = cpf;
 	}
 
+	// Método alterado para chamar Visitor de validação
 	@Override
 	public void setRg(String nome, String numero, String expedidor, String validade) throws DocumentoInvalidoException {
 		RG rg = new RG(nome, numero, expedidor, validade);
-		if(!rg.validar()) {
+		if(!(boolean) rg.accept(new VisitorValidacao())) {
 			throw new DocumentoInvalidoException("RG Inválido");
 		}
 		this.rg = rg;
 	}
-
+	
+	// Método alterado para chamar Visitor de validação
 	@Override
 	public void addCartao(String nome, String numero, String cvc, String vencimento) throws LimiteAtingidoException, DocumentoInvalidoException {
 		if(cartoes.size() < 3) {
 			CartaoCredito cartao = new CartaoCredito(nome, numero, cvc, vencimento);
-			if(!cartao.validar()) {
+			if(!(boolean) cartao.accept(new VisitorValidacao())) {
 				throw new DocumentoInvalidoException("Cartão Inválido");
 			}
 			cartoes.add(cartao);
@@ -77,11 +82,12 @@ public class ConcretePerfilBuilder implements PerfilBuilder {
 			throw new LimiteAtingidoException("Limite de cartões por conta atingido, máximo 3");
 	}
 
+	// Método alterado para chamar Visitor de validação
 	@Override
 	public void addEmail(String conta) throws LimiteAtingidoException, DocumentoInvalidoException {
 		if(emails.size() < 2) {
 			EMail email = new EMail(conta);
-			if(!email.validar()) {
+			if(!(boolean) email.accept(new VisitorValidacao())) {
 				throw new DocumentoInvalidoException("Email Inválido");
 			}
 			emails.add(email);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 // PRODUCT em um BUILDER
+// OBJECT STRUCTURE em um VISITOR
 public class Perfil {
 	
 	private List<Documento> documentos;

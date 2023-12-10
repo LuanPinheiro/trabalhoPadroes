@@ -1,5 +1,8 @@
 package br.edu.inf011.aval3.enunciado.model;
 
+import br.edu.inf011.aval3.enunciado.visitor.VisitorDocumento;
+
+// CONCRETE ELEMENT em um VISITOR
 public class CPF implements Documento{
 	
 	public String nome;
@@ -11,38 +14,11 @@ public class CPF implements Documento{
 		this.nome = nome;
 		this.numero = numero;
 	}
-
-
-	@Override
-	public String formatar() {
-		StringBuilder fmt = new StringBuilder();
-		fmt.append("CPF\n");
-		fmt.append(this.nome + " - ");
-		fmt.append(this.numero.substring(0, 3) + "." + 
-				   this.numero.substring(3, 6) + "." +
-				   this.numero.substring(6, 9) + "-" + 
-				   this.numero.substring(9, 11));
-		return fmt.toString();
-	}
-
-
-	@Override
-	public boolean validar() {
-	    this.numero.replace(".", "");
-	    this.numero.replace("-", "");
-		// TODO Auto-generated method stub
-		return this.numeroValido();
-	}
-
-
-	@Override
-	public Integer pontuar() {
-		// TODO Auto-generated method stub
-		return 3;
-	}
 	
+	// Métodos de validação, pontuação e formatação movidos para o visitor
 	
-	private boolean numeroValido() {
+	// Visibilidade do método alterada para ser acessada pelo Visitor de validação
+	public boolean numeroValido() {
 	    int d1, d2;
 	    int digito1, digito2, resto;
 	    String nDigResult;
@@ -86,7 +62,10 @@ public class CPF implements Documento{
 	public String getNumero() {
 		return numero;
 	}
-	
-	
 
+
+	@Override
+	public Object accept(VisitorDocumento visitor) {
+		return visitor.visit(this);
+	}
 }
