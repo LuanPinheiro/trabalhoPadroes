@@ -7,10 +7,12 @@ import br.edu.inf011.aval3.enunciado.visitor.VisitorDocumento;
 
 // CONCRETE ELEMENT em um VISITOR
 public class CartaoCredito implements Documento{
-	public String nome;
-	public String numero;	
-	public String cvc;
-	public LocalDate vencimento;
+	
+	// Visibilidade alterada para private
+	private String nome;
+	private String numero;	
+	private String cvc;
+	private LocalDate vencimento;
 	
 	public CartaoCredito(String nome, String numero, String cvc, LocalDate vencimento) {
 		super();
@@ -25,20 +27,11 @@ public class CartaoCredito implements Documento{
 	}	
 
 	// Métodos de validação, pontuação e formatação movidos para o visitor
+	// Método verificaLuhn movido para VisitorValidacao
 	
-	// Visibilidade do método alterada para ser acessada pelo Visitor de validação
-	public boolean verificaLuhn() {
-		int sum = 0;
-		boolean shouldDouble = false;
-		for (int iCont = this.numero.length() - 1; iCont >= 0; iCont--) {
-			int digit = this.numero.charAt(iCont) - '0';
-		    if (shouldDouble) {
-		      if ((digit *= 2) > 9) digit -= 9;
-		    }
-		    sum += digit;
-		    shouldDouble = !shouldDouble;
-		  }
-		  return (sum % 10) == 0;		
+	// Novo método para acessar as variáveis privadas para limpar a string numero
+	public void replaceNumero() {
+		numero.replace(" ", "");
 	}
 
 	public String getNome() {

@@ -34,7 +34,12 @@ public class Perfil {
 	
 	@Override
 	public String toString() {
-		return "Perfil [nome=" + nome + ", user=" + user + ", pwd=" + pwd + "]";
+		String tostring = "Perfil [nome=" + nome + ", user=" + user + ", pwd=" + pwd + ", documentos=[ ";
+		for(Documento documento : documentos) {
+			tostring += documento.getClass().getSimpleName() + ", ";
+		}
+		tostring += "]";
+		return tostring;
 	}
 
 	public String getUser() {

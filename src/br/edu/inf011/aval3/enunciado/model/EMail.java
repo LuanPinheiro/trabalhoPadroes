@@ -5,9 +5,9 @@ import br.edu.inf011.aval3.enunciado.visitor.VisitorDocumento;
 // CONCRETE ELEMENT em um VISITOR
 public class EMail implements Documento{
 	
-	public static final String REGEX = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"; 
-	
-	public String conta;
+	// Visibilidade alterada para private
+	private static final String REGEX = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"; 
+	private String conta;
 	
 	public EMail(String conta) {
 		super();

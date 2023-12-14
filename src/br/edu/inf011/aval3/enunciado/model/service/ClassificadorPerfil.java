@@ -10,7 +10,6 @@ import br.edu.inf011.aval3.enunciado.visitor.VisitorPontuacao;
 import br.edu.inf011.aval3.enunciado.visitor.VisitorValidacao;
 
 // REAL SUBJECT em um PROXY
-// CLIENT em um VISITOR
 public class ClassificadorPerfil implements Classificador{
 	
 	private Perfil perfil;

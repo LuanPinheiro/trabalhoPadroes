@@ -50,7 +50,10 @@ public class ConcretePerfilBuilder implements PerfilBuilder {
 	
 	// Método alterado para chamar Visitor de validação
 	@Override
-	public void setCpf(String nome, String numero) throws DocumentoInvalidoException {
+	public void addCpf(String nome, String numero) throws DocumentoInvalidoException, LimiteAtingidoException {
+		if(cpf != null)
+			throw new LimiteAtingidoException("Limite de CPF por conta atingido, máximo 1");
+		
 		CPF cpf = new CPF(nome, numero);
 		if(!(boolean) cpf.accept(new VisitorValidacao())) {
 			throw new DocumentoInvalidoException("CPF Inválido");
@@ -60,7 +63,10 @@ public class ConcretePerfilBuilder implements PerfilBuilder {
 
 	// Método alterado para chamar Visitor de validação
 	@Override
-	public void setRg(String nome, String numero, String expedidor, String validade) throws DocumentoInvalidoException {
+	public void addRg(String nome, String numero, String expedidor, String validade) throws DocumentoInvalidoException, LimiteAtingidoException {
+		if(rg != null)
+			throw new LimiteAtingidoException("Limite de RG por conta atingido, máximo 1");
+		
 		RG rg = new RG(nome, numero, expedidor, validade);
 		if(!(boolean) rg.accept(new VisitorValidacao())) {
 			throw new DocumentoInvalidoException("RG Inválido");

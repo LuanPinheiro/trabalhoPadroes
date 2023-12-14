@@ -8,10 +8,11 @@ import br.edu.inf011.aval3.enunciado.visitor.VisitorDocumento;
 // CONCRETE ELEMENT em um VISITOR
 public class RG implements Documento{
 	
-	public String nome;
-	public String numero;
-	public String expedidor;
-	public LocalDate validade;
+	// Visibilidade alterada para private
+	private String nome;
+	private String numero;
+	private String expedidor;
+	private LocalDate validade;
 	
 	public RG(String nome, String numero, String expedidor, LocalDate validade) {
 		super();
@@ -31,21 +32,17 @@ public class RG implements Documento{
 		return nome;
 	}
 
-
 	public String getNumero() {
 		return numero;
 	}
-
 
 	public String getExpedidor() {
 		return expedidor;
 	}
 
-
 	public LocalDate getValidade() {
 		return validade;
 	}
-
 
 	@Override
 	public Object accept(VisitorDocumento visitor) {
