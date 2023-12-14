@@ -18,7 +18,6 @@ public class Main {
 	public static void main(String[] args) throws LimiteAtingidoException, PerfilSemNomeException, DocumentoInvalidoException {
 		ConcretePerfilBuilder builder = new ConcretePerfilBuilder();
 		builder.addCartao("Meu Cartão", "524 7530203165582", "225", "08/05/2025");
-		// Validação de cpf não está funcionando
 		builder.addCpf("Meu CPF", "34937999001");
 		builder.addRg("Meu RG", "291941448", "SSP", "10/09/2026");
 		builder.addEmail("algumemail@gmail.com");
