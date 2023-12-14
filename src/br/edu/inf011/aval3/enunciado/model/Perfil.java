@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import br.edu.inf011.aval3.enunciado.visitor.VisitorFormatacao;
+import br.edu.inf011.aval3.enunciado.visitor.VisitorValidacao;
+
 // PRODUCT em um BUILDER
 // OBJECT STRUCTURE em um VISITOR
 public class Perfil {
@@ -34,12 +37,11 @@ public class Perfil {
 	
 	@Override
 	public String toString() {
-		String tostring = "Perfil [nome=" + nome + ", user=" + user + ", pwd=" + pwd + ", documentos=[ ";
-		for(Documento documento : documentos) {
-			tostring += documento.getClass().getSimpleName() + ", ";
-		}
-		tostring += "]";
-		return tostring;
+		StringBuilder str = new StringBuilder();
+		str.append(this.nome + "\n");
+		for(Documento doc : this.documentos)
+			str.append(doc.accept(new VisitorFormatacao()) + ((boolean) doc.accept(new VisitorValidacao()) ? " [Válido]" : "") + "\n");
+		return str.toString();
 	}
 
 	public String getUser() {
@@ -53,6 +55,4 @@ public class Perfil {
 	public Stream<Documento> documentos(){
 		return this.documentos.stream();
 	}
-	
-	
 }

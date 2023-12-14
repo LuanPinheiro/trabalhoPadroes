@@ -13,6 +13,7 @@ import br.edu.inf011.aval3.enunciado.visitor.VisitorValidacao;
 
 // CLIENT em um BUILDER
 // CLIENT em um PROXY
+// CLIENT em um VISITOR
 public class Main {
 
 	public static void main(String[] args) throws LimiteAtingidoException, PerfilSemNomeException, DocumentoInvalidoException {
